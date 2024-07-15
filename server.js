@@ -1,14 +1,16 @@
-// Import the express module
 const express = require('express');
+const connectDB = require('./database/db');
+const userRoutes = require('./user');
+
 const app = express();
 const port = 3001;
 
-// Define a route for the root URL
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+app.use(express.json());
 
-// Start the server
+connectDB();
+
+app.use('/users', userRoutes);
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
